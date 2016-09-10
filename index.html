@@ -144,11 +144,32 @@ $(document).ready(function () {
 <pre class="r"><code>library(&quot;foreign&quot;)</code></pre>
 <p>Затем используйте функцию <code>read.spss</code>, чтобы считать данные и сохранить их в переменной <code>data</code> (название переменной может быть и другим).</p>
 <pre class="r"><code>data &lt;- read.spss(&quot;/Users/Hun/Dropbox/Public/ESS6.sav&quot;, to.data.frame=T)</code></pre>
+<p>Фактически, мы загрузили таблицу, каждый ряд который представляет ответы респондентов на различные вопросы, которые соответствуют колонкам таблицы. Посмотрите, какие колонки (они же переменные) существуют в загруженных данных:</p>
+<pre class="r"><code>names(data)</code></pre>
+<pre><code>##  [1] &quot;ESS6_id&quot;        &quot;cntry&quot;          &quot;ESS6_reg&quot;       &quot;regunit&quot;       
+##  [5] &quot;NUTS1&quot;          &quot;NUTS2&quot;          &quot;NUTS3&quot;          &quot;name&quot;          
+##  [9] &quot;proddate&quot;       &quot;idno&quot;           &quot;ppltrst&quot;        &quot;pplfair&quot;       
+## [13] &quot;pplhlp&quot;         &quot;polintr&quot;        &quot;trstprl&quot;        &quot;trstlgl&quot;       
+## [17] &quot;trstplc&quot;        &quot;trstplt&quot;        &quot;trstprt&quot;        &quot;trstep&quot;        
+## [21] &quot;sgnptit&quot;        &quot;pbldmn&quot;         &quot;stflife&quot;        &quot;stfeco&quot;        
+## [25] &quot;stfgov&quot;         &quot;stfdem&quot;         &quot;stfedu&quot;         &quot;stfhlth&quot;       
+## [29] &quot;gincdif&quot;        &quot;freehms&quot;        &quot;imsmetn&quot;        &quot;imdfetn&quot;       
+## [33] &quot;impcntr&quot;        &quot;imwbcnt&quot;        &quot;happy&quot;          &quot;rlgdgr&quot;        
+## [37] &quot;optftr&quot;         &quot;fltlnl&quot;         &quot;fltsd&quot;          &quot;gndr&quot;          
+## [41] &quot;agea&quot;           &quot;yrbrn&quot;          &quot;rshpsts&quot;        &quot;marsts&quot;        
+## [45] &quot;maritalb&quot;       &quot;edulvlb&quot;        &quot;ipcrtiv&quot;        &quot;imprich&quot;       
+## [49] &quot;ipeqopt&quot;        &quot;impsafe&quot;        &quot;ipmodst&quot;        &quot;ipgdtim&quot;       
+## [53] &quot;impfree&quot;        &quot;ipbhprp&quot;        &quot;iprspot&quot;        &quot;iplylfr&quot;       
+## [57] &quot;imptrad&quot;        &quot;impfun&quot;         &quot;inwtm&quot;          &quot;dweight&quot;       
+## [61] &quot;pspwght&quot;        &quot;pweight&quot;        &quot;c_gnipc_2012&quot;   &quot;c_gini_2012&quot;   
+## [65] &quot;c_hditr_2012&quot;   &quot;c_mpi_2012&quot;     &quot;c_gii_2012&quot;     &quot;c_ihsrate_2011&quot;
+## [69] &quot;c_crmtot_2012&quot;</code></pre>
+<p>Значение каждой переменной можно найти в документации к базе на сайте. Нас же интересуют переменные <code>cntry</code> (страна проживания респондента) и <code>agea</code> (возраст респондента).</p>
 <p>NB: в windows путь файлу должен быть указан в таком формате: <code>C:\\smth_folder\\ESS.sav</code>, то есть необходимо использовать двойные бэкслеши вместо одинарных.</p>
 <p>NB: аргумент <code>to.data.frame=T</code> говорит функции <code>read.spss</code>, что данные должны быть конвертированы в data frame.</p>
 </div>
-<div id="--" class="section level2">
-<h2>3. Создайте выборку респондентов</h2>
+<div id="------" class="section level2">
+<h2>3. Создайте выборку респондентов на основе страны проживания</h2>
 <p>В <a href="https://docs.google.com/spreadsheets/d/1ovjCA44svYcyxraMnWJsJGX_ZjQ3a3-km8mFtMRIRTQ/edit?usp=sharing">таблице</a> напротив имени каждого студента указана отдельная страна. Создайте выборку респондентов из соответствующей вам страны. В дальнейшем каждый будет вести работу со своей выборкой. Для примера я возьму ответы украинцев и запишу новые данные в ту же переменную:</p>
 <pre class="r"><code>data &lt;- data[data$cntry == &quot;Ukraine&quot;,]</code></pre>
 <p>Как запрашивать данные по определённому критерию, советую почитать <a href="http://www.statmethods.net/management/subset.html">здесь</a>, это не раз пригодится.</p>
